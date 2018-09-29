@@ -1,0 +1,24 @@
+{
+  "name": "try-ilp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "ledgers": "node src/ledgers.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TOKUJI/try-ilp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TOKUJI/try-ilp/issues"
+  },
+  "homepage": "https://github.com/TOKUJI/try-ilp#readme",
+  "dependencies": {
+    "five-bells-ledger": "^21.2.5",
+    "pgtools": "^0.3.0"
+  }
+}
