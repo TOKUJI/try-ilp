@@ -1,6 +1,7 @@
 'use strict'
 
 const {spawn} = require('child_process');
+const pgtools = require('pgtools');
 
 
 // run npm args command at options{cwd: xxx} directory.
@@ -50,7 +51,6 @@ function getOutputFormatter (prefix) {
 
 async function main(ccys){
   for (var i = 0; i < ccys.length; i++) {
-    const pgtools = require('pgtools');
     const pgConf = {user: 'fivebells', password: 'fivebells', port:5432, host:'localhost'};
     try{
       await pgtools.dropdb(pgConf, ccys[i]);
@@ -59,12 +59,13 @@ async function main(ccys){
       console.log(error);
     }
     await pgtools.createdb(pgConf, ccys[i]);
+    const port = 3000 + i;
     const proc = spawn('npm', ['start'], {cwd:'node_modules/five-bells-ledger',
       env:{LEDGER_DB_URI: `postgres://fivebells:fivebells@localhost/${ccys[i]}`,
            LEDGER_ADMIN_USER:'admin',
-           LEDGER_AADMIN_PASS:'admin',
-           LEDGER_PUBLIC_URI:'http://localhost/',
-           LEDGER_PORT:3000+i,
+           LEDGER_ADMIN_PASS:'admin',
+           LEDGER_PUBLIC_URI:`http://localhost:${port}/`,
+           LEDGER_PORT: port,
            LEDGER_CURRENCY_SYMBOL:ccys[i]
           }
       });
